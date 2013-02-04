@@ -22,7 +22,12 @@ def generate_image_with_stats(interface, output_mode)
   $? == 0 ? output_file : false
 end
 
+before do
+  @uri_path_prefix = '/'
+end
+
 get '/' do
+  @page_title = "vnStat"
   erb :index, :layout => true
 end
 
