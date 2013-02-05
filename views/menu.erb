@@ -1,10 +1,10 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#"><%= @page_title %></a>
-      <p class="navbar-text pull-right">
+      <a class="brand" href="#">vnStat GUI</a>
+      <!-- ><p class="navbar-text pull-right">
         Logged in as <a href="#" class="navbar-link">Username</a>
-      </p>
+      </p>-->
       <ul class="nav">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -12,12 +12,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Interface <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">ActionActionActionActionActionAction</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <% interfaces.each { |interface| %>
+            <li><a href="<%= filter_page_path_helper(interface[:system], @selected_output_mode_filter) %>"><%= interface[:user] %></a></li>
+            <% } %>
             <li class="divider"></li>
-            <li class="nav-header">Nav header</li>
-            <li><a href="#">All interfaces</a></li>
+            <li><a href="<%= filter_page_path_helper("all", @selected_output_mode_filter)%>">All interfaces</a></li>
           </ul>
         </li>
       </ul>

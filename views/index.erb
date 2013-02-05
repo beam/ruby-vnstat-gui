@@ -1,10 +1,10 @@
-<% INTERFACES.each { |interface| %>
-<h1><%=interface%></h1>
+<% interfaces.each { |interface| %>
+<h1><%=interface[:user]%></h1>
 <table border="0"><tr><td>
-<img src="img/<%=interface%>/summary.png" border="0" alt="summary"></td><td>
-<img src="img/<%=interface%>/hours.png" border="0" alt="hourly"></td></tr><tr><td valign="top">
-<img src="img/<%=interface%>/days.png" border="0" alt="daily"></td><td valign="top">
-<img src="img/<%=interface%>/top10.png" border="0" alt="top 10"><br>
-<img src="img/<%=interface%>/months.png" border="0" alt="monthly" vspace="4"></td></tr>
+<img src="<%= image_path_helper(interface[:system],"summary") %>" border="0" alt="summary"></td><td>
+<img src="<%= image_path_helper(interface[:system],"hours") %>"  border="0" alt="hourly"></td></tr><tr><td valign="top">
+<img src="<%= image_path_helper(interface[:system],"days") %>" border="0" alt="daily"></td><td valign="top">
+<img src="<%= image_path_helper(interface[:system],"top10") %>" border="0" alt="top 10"><br>
+<img src="<%= image_path_helper(interface[:system],"months") %>" border="0" alt="monthly" vspace="4"></td></tr>
 </table>
 <% } %>
