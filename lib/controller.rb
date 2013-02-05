@@ -8,15 +8,13 @@ get '/' do
   redirect filter_page_path_helper("all")
 end
 
-get '/web/all.html' do
-  @page_title = "vnStat GUI - All interfaces"
-  @selected_interfaces = interfaces
-  erb :index, :layout => true
-end
-
 get '/web/:interface.html' do
-  @page_title = "vnStat GUI - #{params[:interface]}"
-  @selected_interfaces = [interfaces.detect { |int| int[:system] == params[:interface] }]
+  @page_title = "vnStat GUI - interface: #{params[:interface]}"
+  if params[:interface] == "all"
+    @selected_interfaces = interfaces
+  else
+    @selected_interfaces = [interfaces.detect { |int| int[:system] == params[:interface] }]
+  end
   erb :index, :layout => true
 end
 
