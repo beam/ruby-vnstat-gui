@@ -5,6 +5,8 @@ OUTPUT_MODES = ["hours", "days", "months", "top10", "summary", "hsummary", "vsum
 INTERFACES = ["em0", "re0", "gif0"]
 CACHE_IMAGE = 5 # 5 minut (as cron)
 
+require "#{File.dirname(__FILE__)}/lib/controller.rb"
+
 def build_image_filename(interface, output_mode)
   return "#{TEMP_DIR}/vnstat-#{interface}-#{output_mode}.png"
 end
@@ -20,27 +22,4 @@ def generate_image_with_stats(interface, output_mode)
   output_file = build_image_filename(interface,output_mode)
   begin `vnstati -i #{interface} --#{output_mode} -o #{output_file}` rescue return false end
   $? == 0 ? output_file : false
-end
-
-before do
-  @uri_path_prefix = '/'
-end
-
-get '/' do
-  @page_title = "vnStat"
-  erb :index, :layout => true
-end
-
-get '/img/:interface/:mode.png' do
-  interface = params[:interface].downcase
-  output_mode = params[:mode].downcase
-  halt 415, "Unknown output mode" unless OUTPUT_MODES.include?(output_mode)
-  halt 415, "Unknown interface" unless INTERFACES.include?(interface)
-  output_file = check_image_cache(interface, output_mode) ? build_image_filename(interface,output_mode) : generate_image_with_stats(interface, output_mode)
-  if output_file
-    content_type 'image/png'
-    send_file output_file
-  else
-    halt 503, "Image missing"
-  end
 end
