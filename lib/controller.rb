@@ -10,11 +10,13 @@ end
 
 get '/web/all.html' do
   @page_title = "vnStat GUI - All interfaces"
+  @selected_interfaces = interfaces
   erb :index, :layout => true
 end
 
 get '/web/:interface.html' do
   @page_title = "vnStat GUI - #{params[:interface]}"
+  @selected_interfaces = [interfaces.detect { |int| int[:system] == params[:interface] }]
   erb :index, :layout => true
 end
 

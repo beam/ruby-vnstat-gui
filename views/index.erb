@@ -1,4 +1,4 @@
-<% interfaces.each { |interface| %>
+<% @selected_interfaces.each { |interface| %>
 <h1><%=interface[:user]%></h1>
 <table border="0"><tr><td>
 <img src="<%= image_path_helper(interface[:system],"summary") %>" border="0" alt="summary"></td><td>
